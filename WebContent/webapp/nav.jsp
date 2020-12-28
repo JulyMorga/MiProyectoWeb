@@ -42,11 +42,11 @@
 		Usuario usuario = (Usuario) session.getAttribute("Usuario");
 		if(usuario != null){
 		%>
-       		<a class="nav-link" href="../logout">Salir<i class="fas fa-sign-out-alt">  </i></a>
+       		<a class="nav-link" href="../logout">Salir<em class="fas fa-sign-out-alt">  </em></a>
        	<%
 		}else {
 		%>
-		<a class="nav-link" href="../sigIn">Registrar<i class="fas fa-sign-out-alt">  </i></a>
+		<a class="nav-link" href="../sigIn">Registrar<em class="fas fa-sign-out-alt">  </em></a>
 		<%
 		}
 		%>

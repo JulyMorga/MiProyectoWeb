@@ -11,7 +11,7 @@
 </head>
 <body>
 	<%
-		List<Producto> listProductos = (List<Producto>) request.getAttribute("productos");;
+		List<Producto> listProductos = (List<Producto>) request.getAttribute("productos");
 		if(listProductos.isEmpty()){
 			out.print("No hay productos disponibles");
 		}

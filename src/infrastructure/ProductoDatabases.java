@@ -14,7 +14,7 @@ public class ProductoDatabases extends Database {
 	List <Producto> productos = null;
 	int count = 0;
 	@Override
-	public boolean procesar_consulta(ResultSet resultado) {
+	public boolean procesarConsulta(ResultSet resultado) {
 		productos = new ArrayList<Producto>();
 		try {
 			// nos movemos a la siguiente fila y preguntamos si hay información válida

@@ -53,7 +53,7 @@ public class LoginUsuario extends HttpServlet {
             /*
                si el usuario es nulo enviamos un mensaje de que no existe
             */ 
-        	getServletContext().setAttribute("invalido", "invalido");
+        	getServletContext().setAttribute("invalido", "El usuario o contraseña es invalido");
         	response.sendRedirect("webapp/login.jsp");
         	return;
         	
@@ -73,6 +73,7 @@ public class LoginUsuario extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}

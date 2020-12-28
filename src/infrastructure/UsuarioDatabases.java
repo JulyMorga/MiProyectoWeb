@@ -11,7 +11,7 @@ public class UsuarioDatabases extends Database {
 
 	Usuario usuario = null;
 	@Override
-	public boolean procesar_consulta(ResultSet resultado) {
+	public boolean procesarConsulta(ResultSet resultado) {
 		try {
 			// nos movemos a la siguiente fila y preguntamos si hay información válida
 			if (resultado.next()) {
@@ -35,9 +35,8 @@ public class UsuarioDatabases extends Database {
 		return null;
 	}
 	
-	public boolean crearUsuarioBD(String email, String password, String name, String surname) throws SQLException {
+	public boolean crearUsuarioBD(String email, String password, String name, String surname, int nacionalidad) throws SQLException {
 		conectar();
-		int nacionalidad = 1;
 		boolean res = operacion("INSERT INTO " + Tables.USUARIO + 
 					" (`mail`,`contraseña`,`nombre`,`apellido`,`nacionalidad`)"
 					+ " VALUES (\"" + email + "\",\"" + password +"\",\""+ name 
@@ -50,7 +49,7 @@ public class UsuarioDatabases extends Database {
 		UsuarioDatabases db = new UsuarioDatabases();
 		Usuario usu = null;
 		try {
-			db.crearUsuarioBD("coco@hotmail.com","1234a","coco","gonzales");
+			db.crearUsuarioBD("coco@hotmail.com","1234a","coco","gonzales",1);
 			usu = db.obtenerUsuarioBD("coco@hotmail.com","1234a");
 		} catch (SQLException e) {
 			e.printStackTrace();

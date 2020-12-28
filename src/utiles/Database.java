@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 import constants.Constant;
 
@@ -68,7 +67,7 @@ public abstract class Database {
     public boolean consulta(String consulta) throws SQLException {
     	Statement statement = mysql.createStatement();
     	ResultSet resultado = statement.executeQuery(consulta);
-    	return procesar_consulta(resultado);
+    	return procesarConsulta(resultado);
 
     }
     
@@ -91,7 +90,7 @@ public abstract class Database {
      * @param resultado
      * @return
      */
-    public abstract boolean procesar_consulta(ResultSet resultado);
+    public abstract boolean procesarConsulta(ResultSet resultado);
     
     /**
      * Realiza la desconexion del Database
