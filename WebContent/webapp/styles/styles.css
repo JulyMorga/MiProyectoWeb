@@ -12,6 +12,7 @@ form {
   width: 100%;
   max-width: 420px;
   padding: 2%;
+  margin-top: 5%;
 
 }
 .form-signin :nth-child(n) {

@@ -1,26 +1,55 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page import="model.Nacionalidad"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Usuario"%>
+<%@page import="java.sql.SQLException"%>
+
+<%@page import="infrastructure.NacionalidadDatabases"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    	<%@include file= "common/head.jsp" %>
         <title>
-            Login
+            Registrarme
         </title>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="styles/styles.css" rel="stylesheet"/>
     </head>
     <body class="text-center">
-    	<% if(request.getParameter("email") == null
-		&& request.getParameter("password") == null) { 
+       	<%	
+		    Usuario usuario = (Usuario) session.getAttribute("Usuario");
+			if(usuario != null){
+				response.sendRedirect("index.jsp");
+			}
 		%>
 		<form action="../sigin" class="form-signin" method="POST" action="index.jsp">
-            <h1>
+         	<% 
+				Object resp = null;
+				resp = getServletContext().getAttribute("error");
+				if(resp != null){
+					getServletContext().removeAttribute("error");
+			%>
+			<div class="alert alert-danger" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			 	<span><%out.print(resp); %></span>
+			</div>
+			<% } %>
+	        <h1>
                 Plataforma Cloud
             </h1>
             <h2>
-                Bienvenido! Ingresá tus datos de acceso
+                Registrate ingresando tus datos
             </h2>
+            <label class="sr-only" for="inputName">
+                Nombre
+            </label>
+            <input autofocus class="form-control" id="inputSurname" name="surname" placeholder="Ingrese su nombre" required type="text"/>
+            
+            <label class="sr-only" for="inputSurname">
+                Apellido
+            </label>
+            <input autofocus class="form-control" id="inputName" name="name" placeholder="Ingrese su apellido" required type="text"/>
             <label class="sr-only" for="inputEmail">
                 Tu Email o usuario
             </label>
@@ -29,24 +58,47 @@
                 Tu Clave / Contraseña
             </label>
             <input class="form-control" id="inputPassword" name="password" placeholder="Ingrese su contraseña" required type="password"/>
-            <div class="mr-2">
-                <input name="" type="checkbox"/>
-                <label>
-                    Recuerdame
-                </label>
-            </div>
+			
+			<div class="form-group d-flex justify-content-between mb-3">
+				<label class="d-flex align-items-center" for="selectNacional">
+	                País de origen
+	            </label>
+	            <select class="form-control col-sm-8" name="nacionalidad"  id="selectNacional">
+	            	<%
+		        		NacionalidadDatabases db = new NacionalidadDatabases();
+		        		List<Nacionalidad> nacionalidades = null;
+		        		try {
+		        			
+		        			nacionalidades = db.obtenerNacionalidadesBD();
+		        			
+		        			// Muestro las nacionalidades
+			        		if(nacionalidades !=null) {
+			        			for (Nacionalidad nacionalidad : nacionalidades) {
+									out.println("<option value=\"" + nacionalidad.getId() + "\">" + nacionalidad.getNombre() + "</option>");
+			        			}
+			        		}
+							
+		        		} catch (SQLException e) {
+		        			out.println("<option value=\"-1\">ERROR</option>");
+		        		}
+	            	%>
+				</select>
+			</div>
+			
             <button class="btn btn-lg btn-primary btn-block" type="submit">
-                Ingresar
+                Registrar
             </button>
             <div class="form-adicional">
-                <a href="" id="registrarme">
-                    Registrate Gratis!
-                </a>
-                <a href="" id="olvide_clave">
-                    Olvidé mi clave
+                <a href="login.jsp" id="registrarme">
+                    Iniciar sesión
                 </a>
             </div>
         </form>
-        <% }%>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">
+        </script>
     </body>
 </html>

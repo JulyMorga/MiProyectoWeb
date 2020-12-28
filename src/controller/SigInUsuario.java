@@ -1,23 +1,17 @@
 package controller;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.google.gson.Gson;
-
 import infrastructure.UsuarioDatabases;
-import model.Usuario;
 
 /**
  * Servlet implementation class LoginUsuario
  */
-@WebServlet("/sigIn")
+@WebServlet("/sigin")
 public class SigInUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -45,41 +39,30 @@ public class SigInUsuario extends HttpServlet {
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
-        String nacionalidad = request.getParameter("nacionalidad");
-        Gson gson = new Gson();
+        int nacionalidad = Integer.parseInt(request.getParameter("nacionalidad"));
         boolean respuestaBd = false;
         UsuarioDatabases usuario_db = new UsuarioDatabases();
-        
         try {
-        	respuestaBd = usuario_db.crearUsuarioBD(email, password, name, surname);
+        	respuestaBd = usuario_db.crearUsuarioBD(email, password, name, surname, nacionalidad);
 		} catch (Exception e) {
-			response.getWriter().append("No existe el usuario").append(request.getContextPath());
+			//response.getWriter().append("No pudo crear al usuario").append(request.getContextPath());
 		}
         if (!respuestaBd) {
             /*
                No se pudo crear correctamente.
             */ 
-        	getServletContext().setAttribute("error", "No pudo crear.");
-            response.sendRedirect("webapp/sigin.jsp"); 
+        	getServletContext().setAttribute("error", "No pudo crear al usuario");
+            response.sendRedirect("webapp/sigin.jsp");
+            return;
         }
         
-//        HttpSession session = request.getSession(); // guardamos la sesión 
-//        session.setMaxInactiveInterval(60*10);
-//        session.setAttribute("Usuario", usuario);
-//        String json = gson.toJson(usuario);
-//        System.out.println("Json:   "+json);
-//        PrintWriter out = response.getWriter(); 
-//        out.println(json);
-        
-//        request.setAttribute("email", usuario.getEmail());
-//        request.setAttribute("contraseña", usuario.getPassword());
-//        // pongo la url del jsp siguiente
-        response.sendRedirect("webapp/login.jsp");
+       response.sendRedirect("webapp/login.jsp");
     }
         
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
