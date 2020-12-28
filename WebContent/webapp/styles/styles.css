@@ -1,0 +1,84 @@
+
+body{
+  align-items: center;
+  background-color: #E8E8E8;
+ }
+
+form {
+  margin: auto;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 2%;
+
+}
+.form-signin :nth-child(n) {
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+}
+
+.form-signin h1 {
+  font-size: 2.1rem;
+}
+
+.form-signin h2 {
+  font-size: 1.1rem;
+  padding-bottom: 2%;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 2%;
+
+}
+
+.form-signin .form-control focus{
+  z-index: 1;
+}
+
+.form-adicional{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 5%;
+  padding: 2%;
+}
+
+#registrarme {
+  text-decoration: none;
+  color: black;
+}
+
+#olvide_clave {
+  text-decoration: none;
+  color: red;
+}
+ 
+.div_contenedor {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-items: center;
+  	padding-top: 10%;
+  	background-color: #E8E8E8;
+}
+
+#div_datos {
+	text-align: left;
+
+}
+
+#datos_ingresados{
+	background-color: #169c6d;
+}
+
+body>div {
+    display: none;
+}
+body>div.active {
+    display: block;
+}
