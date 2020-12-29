@@ -1,6 +1,6 @@
 # MiProyectoWeb
 Proyecto Web Dinámico realizado con Java, utilizando páginas jsp y servlets.
-Además utilizo un base de datos mySql y Maven para que sea más sencillo la importación de las librerías necesarias.
+Además utilizo un base de datos mySql, Bootstrap y Maven para que sea más sencillo la importación de las librerías necesarias.
 
 Actualmente utilizo un servidor Apache Tomcat 9 para realizar las pruebas.
 
