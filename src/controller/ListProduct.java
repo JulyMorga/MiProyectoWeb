@@ -29,7 +29,7 @@ public class ListProduct extends HttpServlet {
         ProductoDatabases dbProducto = new ProductoDatabases();
     
         try {
-			productos = dbProducto.obtenerProductosBD(1);
+			productos = dbProducto.obtenerProductosBD(1,20);
 			for (Producto producto : productos) {
 				System.out.println(producto.toString());
 			}
@@ -42,7 +42,7 @@ public class ListProduct extends HttpServlet {
 //        	response.sendError(404, "No existen productos");
         	System.out.println("No existen productos");
         }
-        request.setAttribute("productos", productos);
+//        request.setAttribute("productos", productos);
 //	    String json = gson.toJson(productos); 
 //	    
 //	    PrintWriter out = response.getWriter(); 
@@ -52,9 +52,8 @@ public class ListProduct extends HttpServlet {
 //	   
 //	    out.println(json);  // acá damos la respuesta del objeto que creamos
 //      pongo la url del jsp siguiente
-        
-        RequestDispatcher rd = request.getRequestDispatcher("webapp/Productos.jsp");
-        rd.forward(request, response);
+        request.getSession().setAttribute("productos", productos);
+        response.sendRedirect("webapp/Productos.jsp");
 	}
 	
     /*

@@ -38,16 +38,36 @@ public class ProductoDatabases extends Database {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public List<Producto> obtenerProductosBD(int lote) throws SQLException {
-		int loteInicio = ((lote-1) * 20);
-		int loteFin = loteInicio + 20;
+	public List<Producto> obtenerProductosBD(int lote, int cantidadAObtener) throws SQLException {
+		int loteInicio = ((lote-1) * cantidadAObtener);
 		conectar();
 		//TO-DO OJO CON EL FINAL DE LOTE.
-		consulta("SELECT * FROM " + Tables.PRODUCTO  + " WHERE codigo > " + loteInicio + " AND codigo <= " + loteFin);
+		ResultSet respuesta = consulta("SELECT * FROM " + Tables.PRODUCTO  + " LIMIT " + loteInicio + " , " + cantidadAObtener);
+		procesarConsulta(respuesta);
 		desconectar();
 		if(!productos.isEmpty())
 			return productos;
 		return null;
+	}
+	
+	/**
+	 * Devuelve la cantidad de productos
+	 * @return
+	 */
+	public int obtenerCantidadProductos() {
+		int cantidad = 0;
+		conectar();
+		try {
+			ResultSet respuesta = consulta("SELECT count(*) as cant FROM " + Tables.PRODUCTO + ";");
+			if (respuesta.next()) { 
+				cantidad = respuesta.getInt(1);
+			}
+			desconectar();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cantidad;
 	}
 
 }

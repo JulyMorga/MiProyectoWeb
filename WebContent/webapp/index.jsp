@@ -28,6 +28,6 @@
        	<%@include file= "about.html" %>
        	<%@include file= "servicios.html" %>
        	<%@include file= "contactenos.html" %>
-       	<script src="main.js"></script>
+       	<script src="script/main.js"></script>
 	</body>
 </html>

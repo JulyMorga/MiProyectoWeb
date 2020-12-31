@@ -1,4 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Usuario"%>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

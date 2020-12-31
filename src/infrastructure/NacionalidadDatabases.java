@@ -37,7 +37,8 @@ public class NacionalidadDatabases extends Database{
 	 */
 	public List<Nacionalidad> obtenerNacionalidadesBD() throws SQLException {
 		conectar();
-		consulta("SELECT * FROM " + Tables.NACIONALIDAD + ";");
+		ResultSet resultado = consulta("SELECT * FROM " + Tables.NACIONALIDAD + ";");
+		procesarConsulta(resultado);
 		desconectar();
 		if(!nacionalidades.isEmpty())
 			return nacionalidades;

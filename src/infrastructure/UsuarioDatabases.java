@@ -28,7 +28,8 @@ public class UsuarioDatabases extends Database {
 	
 	public Usuario obtenerUsuarioBD(String email, String password) throws SQLException {
 		conectar();
-		consulta("SELECT mail, contraseña FROM " + Tables.USUARIO+ " where mail=\""+ email +"\"");
+		ResultSet resultado = consulta("SELECT mail, contraseña FROM " + Tables.USUARIO+ " where mail=\""+ email +"\"");
+		procesarConsulta(resultado);
 		desconectar();
 		if(usuario.equals(email, password))
 			return usuario;

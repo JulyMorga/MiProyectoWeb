@@ -64,11 +64,9 @@ public abstract class Database {
      * @return boolean Resultado de la operacion TRUE si se desconecto
      * exitosamente, FALSE en caso contrario.
      */
-    public boolean consulta(String consulta) throws SQLException {
+    public ResultSet consulta(String consulta) throws SQLException {
     	Statement statement = mysql.createStatement();
-    	ResultSet resultado = statement.executeQuery(consulta);
-    	return procesarConsulta(resultado);
-
+    	return statement.executeQuery(consulta);
     }
     
     /**
