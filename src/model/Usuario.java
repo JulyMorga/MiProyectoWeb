@@ -20,6 +20,12 @@ public class Usuario implements Serializable, Comparable<Usuario> {
 		this.idUsuario = -1;
 	}
 	
+	public Usuario(String email, String password, int idUsuario) {
+		this.password = password;
+		this.email = email;
+		this.idUsuario = idUsuario;
+	}
+	
 	public String getPassword() {
 		return password;
 	}

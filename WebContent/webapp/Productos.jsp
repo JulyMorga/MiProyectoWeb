@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<%@include file= "common/head.jsp" %>
+		<%@include file= "common/head.html" %>
 	<title>Productos</title>
 	</head>
 	<body>
@@ -29,10 +29,12 @@
 			}
 		%>
 			</div>
+			<!-- TO-DO Para mostrar cual es el actual, obtenerlo de la sesion "lote" 
+				"cantProductos" almacena -->
 			<div class="btn-toolbar justify-content-center mt-3" role="toolbar">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default">1</button>
-					<button type="button" class="btn btn-default">2</button>
+					<a type="button" class="btn btn-default" href="../ListProduct?lote=1&cantMostrar=9">1</a>
+					<a type="button" class="btn btn-default" href="../ListProduct?lote=2&cantMostrar=9">2</a>
 					<button type="button" class="btn btn-default">3</button>
 					<button type="button" class="btn btn-default">4</button>
 				</div>

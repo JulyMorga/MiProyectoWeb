@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-    	<%@include file= "common/head.jsp" %>
+    	<%@include file= "common/head.html" %>
         <title>
             Registrarme
         </title>

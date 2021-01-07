@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../ListProduct">
+                <a class="nav-link" href="productosJson.jsp">
                     Productos
                 </a>
             </li>

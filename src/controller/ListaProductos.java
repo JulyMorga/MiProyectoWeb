@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,14 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import infrastructure.ProductoDatabases;
 import model.Producto;
 
 /**
  * Servlet implementation class ListProduct
  */
-@WebServlet("/ListProduct")
-public class ListProduct extends HttpServlet {
+@WebServlet("/ListaProductos")
+public class ListaProductos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     // Defino el estado del DataSource, igual que en el context.xml
 	@Resource(name="jdbc/productos")
@@ -28,10 +31,20 @@ public class ListProduct extends HttpServlet {
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-	    response.setContentType("text/plain;charset=UTF-8");
+	    response.setContentType("apllication/json;");
+	    response.setCharacterEncoding("UTF-8");
 	    
-	    String lote = (String) request.getParameter("lote");
-	    String cantMostrar = (String) request.getParameter("cantMostrar");
+	    String lote = request.getParameter("lote");
+	    String cantMostrar = request.getParameter("cantMostrar");
+	    String obtenerCantMostrar = request.getParameter("cantidadProductos");
+
+	    int cantidadTotal = 0;
+	    ProductoDatabases dbProducto = new ProductoDatabases();
+	    
+	    // Verifico si quieren saber la cantidad de productos.
+	    if(obtenerCantMostrar != null) {
+	    	cantidadTotal = dbProducto.obtenerCantidadProductos();
+	    }
 	    
 	    // Obtengo el lote
 	    if(lote == null) {
@@ -44,38 +57,31 @@ public class ListProduct extends HttpServlet {
     	if(cantMostrar == null) {
 	    	cantMostrar = "9";
 	    }
+    	
     	int icantMostrar = Integer.parseInt(cantMostrar);	
 	      
 	    List<Producto> productos = null;
-        ProductoDatabases dbProducto = new ProductoDatabases();
-    
         try {
 			productos = dbProducto.obtenerProductosBD(ilote, icantMostrar);
 			if(productos == null) {
 //        		response.sendError(404, "No existen productos");
-				System.out.println("No existen productos");
+				System.out.println("No existen productos");								
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("No es una operación valida");
-//			response.sendError(404, "No es una operación valida");
 		}			
 
-//        request.setAttribute("productos", productos);
-//	    String json = gson.toJson(productos); 
-//	    
-//	    PrintWriter out = response.getWriter(); 
-//	    /* ahora generamos la respuesta, 
-//	   el método.getWriter nos da un objeto de PrintWriter que va a escribir la 
-//	   respuesta que vamos a dar al momento de realizar una petición en javascript */
-//	   
-//	    out.println(json);  // acá damos la respuesta del objeto que creamos
-//      pongo la url del jsp siguiente
-        request.getSession().setAttribute("lote", lote);
-        request.getSession().setAttribute("productos", productos);
-        request.getSession().setAttribute("cantProductos", dbProducto.obtenerCantidadProductos());
-        request.getSession().setAttribute("lote", lote);
-        response.sendRedirect("webapp/Productos.jsp");
+        Gson gson = new Gson();
+	    String json = gson.toJson(productos); 
+//	    String json2 = gson.toJson(cantidad); 
+	    
+	    PrintWriter out = response.getWriter(); 
+	    
+//	    out.println("\"productos\":" +json+ " , \"cantMostrar\":"+ json2);
+	    out.println(json);			// Damos la respuesta del objeto que creamos
+	    System.out.println(json);
+	    out.flush();
 	}
 	
     /*
